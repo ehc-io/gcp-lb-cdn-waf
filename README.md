@@ -25,19 +25,9 @@
         
 3. From the repo folder run the following commands:  
     `terraform init`   
-    `terraform apply -auto-approve`             
+    `terraform apply -auto-approve -var`             
 
     *Deployment takes about 6-8 minutes to be operational and ready for taking  http requests*
-
-## Run your caching tests with the following commands:
-
-- Prints headers, response times & html outputs:  
-  `curl -w "%{time_total}\n" -s -D - -H "User-Agent: <random-string>" http://<lb-hostname>`
-
-- Prints only response times:  
-  `date +%s ; for i in {1..3};do curl -s -w "%{time_total}\n" -H "User-Agent: <random-string>" -o /dev/null http://<lb-hostname>; done`
-
-    *\<random-string> helps identify requests in Log Explorer*
 
 - Set variables  
     `exploit="cmd%3D%3B%20cat%20%2Fetc%2Fpasswd" ;`  
@@ -47,6 +37,17 @@
     `url_good="http://ehc-google.com$url_path" ;`  
     `url_bad="http://ehc-google.com$url_path&$exploit" ;` 
 
-- Send requests as:
+## Run your tests:
+
+- Caching tests
+    - Prints headers, response times & html outputs:  
+    `curl -w "%{time_total}\n" -s -D - -H "User-Agent: <random-string>" http://<lb-hostname>`
+
+    - Prints only response times:  
+    `date +%s ; for i in {1..3}; do curl -s -w "%{time_total}\n" -H "User-Agent: <random-string>" -o /dev/null http://<lb-hostname>; done`
+
+        *\<random-string> helps identify requests in Log Explorer*
+
+- Waf tests:
 
     `curl -w "%{time_total}\n" -s -D - -H "User-Agent: $user_agent" $url_bad`
