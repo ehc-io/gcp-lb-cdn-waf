@@ -42,7 +42,7 @@
 - Set variables  
     `exploit="cmd%3D%3B%20cat%20%2Fetc%2Fpasswd" ;`  
     `user="user1" ;`  
-    `user_agent="casseano-1" ;`  
+    `user_agent="my-header" ;`  
     `url_path="/index.nginx-debian.html?user=$user" ;`  
     `url_good="http://ehc-google.com$url_path" ;`  
     `url_bad="http://ehc-google.com$url_path&$exploit" ;` 
