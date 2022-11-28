@@ -34,8 +34,8 @@
     `user="user1" ;`  
     `user_agent="my-header" ;`  
     `url_path="/index.nginx-debian.html?user=$user" ;`  
-    `url_good="http://ehc-google.com$url_path" ;`  
-    `url_bad="http://ehc-google.com$url_path&$exploit" ;` 
+    `url_good="http://mydomain.com$url_path" ;`  
+    `url_bad="http://mydomain.com$url_path&$exploit" ;` 
 
 ## Run your tests:
 
