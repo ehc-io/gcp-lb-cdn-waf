@@ -1,18 +1,19 @@
 variable "timestamp" {
-    default = "1669382069"
+    default = "1699895758"
 }
 
 variable "project_id" { 
     default = "lb-waf"
 }
 
-variable "billing_account" { 
-    default = "<billing-account-id>"
+variable "billing_account" {
+    default = "12345-asdfg-asdfg"
 }
 
-variable "parent_org" { 
-    default = "organizations/<org-id>"
+variable "google_folder" {
+    default = "folders/1234567890"
 }
+
 
 variable "vpc_name" { 
     default = "waf-demo"
@@ -31,7 +32,7 @@ variable "zone" {
 
 variable "name" {
     type = string
-    description = "The base name of resources"
+    description = "Cloud Armor Demo"
     default = "waf-demo"
 }
 
@@ -50,7 +51,7 @@ variable "network_cidr_backend" {
 }
 
 variable "remote_ips" {
-  default = ["179.98.179.66/32"]
+  default = ["186.204.109.200/32"]
 }
 
 variable "health_check_source_ranges" {

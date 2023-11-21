@@ -28,10 +28,13 @@ resource "google_compute_instance_template" "default" {
         #!/bin/bash
         apt update -y
         sudo apt-get install -y nginx
-        sudo curl -s -o /etc/nginx/sites-enabled/default https://gist.githubusercontent.com/ehc-io/9f8042539db435a9e6d27e3cc7dbfb00/raw/2f38727695f22a5954278f49f645802984d73b35/nginx-cache-config
-        sudo curl -s -o /var/www/html/video.mp4 https://static.canva.com/anon_home/benefits-start-en-1200x780-compressed.mp4
-        sudo curl -o /var/www/html/cloud-logo.svg https://www.gstatic.com/devrel-devsite/prod/v0427f8a5788f798e3d6bd6e8789f9c1353ea9d7c80868d11a32bd9516fe63280/cloud/images/cloud-logo.svg
-        sudo systemctl restart nginx.service
+        # web server config
+        curl -o /etc/nginx/sites-enabled/default https://gist.githubusercontent.com/ehc-io/de926bb5370b171234f4873ed1ab251a/raw/09427e85c8dc3fc5e7a43eac449c2653dc5a4ef3/app.conf
+        sed -i 's/listen 8080/listen 80/' /etc/nginx/sites-enabled/default
+        curl -o /usr/share/nginx/html/index.html https://gist.githubusercontent.com/ehc-io/5248879e9aabbe4444e2ead09be754c0/raw/f4f15bf317f920a0982b0e29d87d66434cd57212/demo-index.html
+        # web server-2 config
+        host=$(hostname) ; echo "Webserver: $host" > /usr/share/nginx/html/txt.html
+        systemctl restart nginx.service
         EOT
     }
 

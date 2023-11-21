@@ -25,17 +25,19 @@ resource "google_compute_health_check" "http" {
 resource "google_compute_backend_service" "default" {
     project         = module.project.project_id
     name                            = "${var.name}-backend-service"
-    enable_cdn                      = false
+    enable_cdn                      = true
     health_checks                   = [google_compute_health_check.http.id]
-        
+    
     cdn_policy {
-        # cache_mode = "USE_ORIGIN_HEADERS"
-        cache_mode = "CACHE_ALL_STATIC"
-        default_ttl = 300
-        client_ttl  = 300
-        max_ttl     = 300
+        cache_mode = "USE_ORIGIN_HEADERS"
         negative_caching = false
-        signed_url_cache_max_age_sec = 7200
+        signed_url_cache_max_age_sec = 300
+        cache_key_policy {
+            include_host = true
+            include_protocol = true
+            include_query_string = true
+            # include_http_headers = ["X-My-Header-Field"]
+        }
     }
 
     log_config {
@@ -46,7 +48,7 @@ resource "google_compute_backend_service" "default" {
     load_balancing_scheme = "EXTERNAL_MANAGED"
     protocol              = "HTTP"
     port_name             = "http"
-    security_policy       = try(google_compute_security_policy.owasp-policy.name, null)
+    security_policy       = try(google_compute_security_policy.basic-waf-policy.name, null)
     backend {
         group = google_compute_instance_group_manager.default.instance_group
     }

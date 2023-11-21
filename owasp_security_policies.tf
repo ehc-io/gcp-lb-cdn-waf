@@ -121,6 +121,7 @@ variable "allow_rules" {
             priority        = "2147483647"
             versioned_expr = "SRC_IPS_V1"
             src_ip_ranges   = ["*"]
+            # src_ip_ranges   = ["186.204.109.200"]
             description     = "Default rule"
             preview         = false
         }
