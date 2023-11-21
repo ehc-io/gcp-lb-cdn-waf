@@ -51,7 +51,7 @@ variable "network_cidr_backend" {
 }
 
 variable "remote_ips" {
-  default = ["186.204.109.200/32"]
+  default = ["x.x.x.x/32"]
 }
 
 variable "health_check_source_ranges" {
